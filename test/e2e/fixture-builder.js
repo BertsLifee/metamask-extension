@@ -5,7 +5,7 @@ const {
 const { merge } = require('lodash');
 const { toHex } = require('@metamask/controller-utils');
 const { NetworkStatus } = require('@metamask/network-controller');
-const { CHAIN_IDS } = require('../../shared/constants/network');
+const { CHAIN_IDS, NETWORK_TYPES } = require('../../shared/constants/network');
 const {
   ACTION_QUEUE_METRICS_E2E_TEST,
 } = require('../../shared/constants/test-flags');
@@ -477,6 +477,13 @@ class FixtureBuilder {
     return this;
   }
 
+  withKeyringControllerAdditionalAccountVault() {
+    return this.withKeyringController({
+      vault:
+        '{"data":"n1LbLX7D4CdnFjYkyvn8Vfv0VQ0spMTdzCP+bsrZX2cQXiz+GXb9AKaIjbcR0EHuQ5/VulkrpbZFDSYJ5VlZ5VRVVUngckHCNgzw73Jo3D+fVrmwEn6HhBbA+STHRMdjf3eEL/eiS5HbkQ0zutoj8KU/nMPfTz6iuV+WGa0hcOKZa+mqYkSzeYuqVCnWYspjF9hKE5NKnl5Vrnvu3/eFi6PiDeaUbIfs0ccttopnTdQya5e3KB23tu0ORa48EJawK0JeKurLlFfNNNqq+tg3HRgxUyiVp6mCns8GBdsd9Wx3HP00qIJa4OAFV2TtDvSSuek1XAWlIqjKegZbnXosB0t3IABhqWnSozXRFvsHe8oHVZP++B/2pJPzz5kkAgK9Ya/quy/7ok/GN5qw0n9Q6cCexfm9hGC3MI53ClEg08yq2w/eVKMDeEdES6IqidpRxOanIAsrcDjPIw6yP7tXqzo7d4A/50GyBb5MJYeTD7r9bV5/5VWcHtILDyGt4CROgM9/U/wdKduNJy5Igfhh0nvA0399Ber9jvWmtmQxiWAxAgrcf9Xi0SZXWewH/ZEnAOkIOmTVX9hpAGkbDqIvK1Zt2bIK5X/At2KiZ5DqAFet9AiyLZTPR5YQ2KaB8AarEjUthTa7EcDSpAPsr9jLPZwlKuMZO2I29xZHx4ht4ozlcqU+zMF8JBojtP73cRQKc0Chqm8xY9I9K6jANdZn9lT+q20RDgwJAfkp+UUSTTqUgZ3ruej2FyY9F+GWuOZJY1zPN0KG7j7uPXaP5Gqq","iv":"XxlC9CCaul7U0F6JRNyH9A==","salt":"gQOYCUFPAPVJITl0gxIs8TdgNQNl2ltzu4OAHajj+tM="}',
+    });
+  }
+
   withKeyringControllerImportedAccountVault() {
     return this.withKeyringController({
       vault:
@@ -491,6 +498,18 @@ class FixtureBuilder {
 
   withNetworkController(data) {
     merge(this.fixture.data.NetworkController, data);
+    return this;
+  }
+
+  withNetworkControllerOnMainnet() {
+    merge(this.fixture.data.NetworkController, {
+      providerConfig: {
+        chainId: CHAIN_IDS.MAINNET,
+        nickname: '',
+        rpcUrl: '',
+        type: NETWORK_TYPES.MAINNET,
+      },
+    });
     return this;
   }
 
@@ -593,7 +612,10 @@ class FixtureBuilder {
               caveats: restrictReturnedAccounts && [
                 {
                   type: 'restrictReturnedAccounts',
-                  value: ['0x5cfe73b6021e818b776b421b1c4db2474086a7e1'],
+                  value: [
+                    '0x5cfe73b6021e818b776b421b1c4db2474086a7e1',
+                    '0x09781764c08de8ca82e156bbf156a3ca217c7950',
+                  ],
                 },
               ],
               date: 1664388714636,
@@ -647,6 +669,23 @@ class FixtureBuilder {
   withPreferencesController(data) {
     merge(this.fixture.data.PreferencesController, data);
     return this;
+  }
+
+  withPreferencesControllerAdditionalAccountIdentities() {
+    return this.withPreferencesController({
+      identites: {
+        '0x5cfe73b6021e818b776b421b1c4db2474086a7e1': {
+          address: '0x5cfe73b6021e818b776b421b1c4db2474086a7e1',
+          lastSelected: 1665507600000,
+          name: 'Account 1',
+        },
+        '0x09781764c08de8ca82e156bbf156a3ca217c7950': {
+          address: '0x09781764c08de8ca82e156bbf156a3ca217c7950',
+          lastSelected: 1665507500000,
+          name: 'Account 2',
+        },
+      },
+    });
   }
 
   withPreferencesControllerImportedAccountIdentities() {
@@ -1345,6 +1384,7 @@ class FixtureBuilder {
             type: '0x2',
             value: '0xde0b6b3a7640000',
           },
+          hash: '0xe5e7b95690f584b8f66b33e31acc6184fea553fa6722d42486a59990d13d5fa2',
           txReceipt: {
             blockNumber: {
               length: 1,

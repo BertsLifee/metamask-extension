@@ -41,3 +41,125 @@ privacy-snapshot.json                @MetaMask/extension-privacy-reviewers
 # that agreement and can only be approved by those with the knowledge
 # and responsibility to publish libraries under the MetaMask name.
 .github/CODEOWNERS                   @MetaMask/library-admins @kumavis
+
+###########################################################
+#                       Team Ownership                    #
+###########################################################
+
+# The following sections are organized by team. Each team has a set of
+# responsibilities and a set of domains that they are responsible
+# for.
+
+############################################################
+# @MetaMask/confirmations-system-team - Confirmations System
+####################           app/scripts
+app/scripts/controllers/trasactions/ @MetaMask/confirmations-system-team @MetaMask/extension-devs
+app/scripts/controllers/decrypt-message.* @MetaMask/confirmations-system-team @MetaMask/extension-devs
+app/scripts/lib/AddressBookPetnamesBridge* @MetaMask/confirmations-system-team @MetaMask/extension-devs
+app/scripts/lib/SnapsNameProvider* @MetaMask/confirmations-system-team @MetaMask/extension-devs @MetaMask/snaps-devs
+####################           ui/
+ui/components/app/desktop-enable-button/ @MetaMask/confirmations-system-team @MetaMask/extension-devs
+ui/hooks/desktopHooks* @MetaMask/confirmations-system-team @MetaMask/extension-devs
+ui/hooks/usePetnamesEnabled.ts @MetaMask/confirmations-system-team @MetaMask/extension-devs
+ui/pages/desktop-error @MetaMask/confirmations-system-team @MetaMask/extension-devs
+ui/pages/desktop-pairing @MetaMask/confirmations-system-team @MetaMask/extension-devs
+ui/selectors/approvals* @MetaMask/confirmations-system-team @MetaMask/extension-devs
+
+
+############################################
+# @MetaMask/confirmations - Confirmations UX
+####################           app/scripts
+app/scripts/lib/ppom/ @MetaMask/confirmations @MetaMask/extension-devs
+####################           ui/components/app
+ui/components/app/advanced-gas-controls/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/advanced-gas-fee-popover/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/advanced-gas-inputs/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/cancel-speedup-popover/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-data/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-gas-display/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-hexadata/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-page-container/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-subtitle/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirm-title/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/confirmation-warning-modal/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/components/app/custom-nonce/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/components/app/custom-spending-cap/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/components/app/edit-gas-display/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/edit-gas-fee-popover/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/edit-gas-popover/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/edit-gas-fee-button/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/gas-details-item/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/gas-timing/ @MetaMask/confirmations @MetaMask/extension-devs
+# ui/components/app/permission-cell/ @MetaMask/confirmations @MetaMask/extension-devs    SHOULD WE INCLUDE THIS?
+# ui/components/app/permission-page-container/ @MetaMask/confirmations @MetaMask/extension-devs    SHOULD WE INCLUDE THIS?
+# ui/components/app/permissions-connect-footer/ @MetaMask/confirmations @MetaMask/extension-devs    SHOULD WE INCLUDE THIS?
+# ui/components/app/permissions-connect-header/ @MetaMask/confirmations @MetaMask/extension-devs    SHOULD WE INCLUDE THIS?
+# ui/components/app/permissions-connect-permission-list/ @MetaMask/confirmations @MetaMask/extension-devs    SHOULD WE INCLUDE THIS?
+ui/components/app/security-provider-banner-alert/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/security-provider-banner-message/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/set-approval-for-all-warning/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/components/app/signature-request/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/signature-request-header/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/signature-request-original/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/signature-request-siwe/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-activity-log/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-alerts/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-breakdown/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-decoding/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-detail/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-detail-item/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-icon/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-list/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-list-item/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-list-item-details/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/app/transaction-status-label/ @MetaMask/confirmations @MetaMask/extension-devs
+####################           ui/components/ui/
+ui/components/ui/review-spending-cap/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/components/ui/sender-to-recipient/ @MetaMask/confirmations @MetaMask/extension-devs
+ui/components/ui/simulation-error-message/ @MetaMask/confirmations @MetaMask/extension-devs
+####################           ui/contexts/
+ui/contexts/gasFee.js @MetaMask/confirmations @MetaMask/extension-devs # Double check
+####################           ui/ducks/
+ui/ducks/confirm-transaction/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/ducks/gas/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/ducks/send/ @MetaMask/confirmations @MetaMask/extension-devs # Double check
+####################           ui/helpers
+ui/helpers/constants/gas.js @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/helpers/constants/transactions.js @MetaMask/confirmations @MetaMask/extension-devs # Double check
+####################           ui/hooks
+ui/hooks/gasFeeInput @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/hooks/useApproveTransaction.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useDraftTransactionWithTxParams.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useGasFeeEstimates* @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useIncrementedGasFees.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useRejectTransactionModal.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useSafeGasEstimatePolling.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useShouldAnimateGasEstimations.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useShouldShowSpeedUp.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useSimulationFailureWarning.js @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/hooks/useTransactionDisplayData* @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useTransactionFunctionType*.js @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useTransactionInfo* @MetaMask/confirmations @MetaMask/extension-devs
+ui/hooks/useTransactionInsights.js @MetaMask/confirmations @MetaMask/extension-devs
+####################           ui/pages
+ui/pages/confirm-add-suggested-nft @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/pages/confirm-add-suggested-token @MetaMask/confirmations @MetaMask/extension-devs # Double check
+ui/pages/confirm-approve @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-contract-interaction @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-decrypt-message @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-deploy-contract @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-encryption-public-key @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-send-ether @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-send-token @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-signature-request @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-token-transaction-base @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-transaction @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-transaction-base @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirm-transaction-switch @MetaMask/confirmations @MetaMask/extension-devs
+ui/pages/confirmation @MetaMask/confirmations @MetaMask/extension-devs
+# ui/pages/send @MetaMask/confirmations @MetaMask/extension-devs SHOULD WE INCLUDE THIS?
+ui/pages/token-allowance @MetaMask/confirmations @MetaMask/extension-devs
+####################           ui/selectors
+ui/selectors/confirm-transaction* @MetaMask/confirmations @MetaMask/extension-devs
+ui/selectors/custom-gas* @MetaMask/confirmations @MetaMask/extension-devs
+ui/selectors/transactions* @MetaMask/confirmations @MetaMask/extension-devs

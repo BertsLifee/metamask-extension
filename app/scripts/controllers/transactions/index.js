@@ -2316,6 +2316,7 @@ export default class TransactionController extends EventEmitter {
       ///: BEGIN:ONLY_INCLUDE_IN(blockaid)
       securityAlertResponse,
       ///: END:ONLY_INCLUDE_IN
+      simulationFails,
     } = txMeta;
 
     const source = referrer === ORIGIN_METAMASK ? 'user' : 'dapp';
@@ -2510,6 +2511,7 @@ export default class TransactionController extends EventEmitter {
       security_alert_reason:
         securityAlertResponse?.reason ?? BlockaidReason.notApplicable,
       ///: END:ONLY_INCLUDE_IN
+      gas_estimation_failed: Boolean(simulationFails),
     };
 
     const snapAndHardwareInfo = await getSnapAndHardwareInfoForMetrics(

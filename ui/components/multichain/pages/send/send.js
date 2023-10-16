@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Content, Footer, Header, Page } from '../page';
 import { I18nContext } from '../../../../contexts/i18n';
@@ -30,9 +30,11 @@ import {
 } from '../../../../selectors';
 import { AccountPicker, AccountListItem } from '../..';
 import DomainInput from '../../../../pages/send/send-content/add-recipient/domain-input.component';
+import { toggleAccountMenu } from '../../../../store/actions';
 
 export const SendPage = () => {
   const t = useContext(I18nContext);
+  const dispatch = useDispatch();
 
   // Network
   const currentNetwork = useSelector(getCurrentNetwork);
@@ -81,7 +83,7 @@ export const SendPage = () => {
           <AccountPicker
             address={identity.address}
             name={identity.name}
-            onClick={() => undefined}
+            onClick={() => dispatch(toggleAccountMenu())}
             showAddress
             borderColor={BorderColor.borderDefault}
             borderWidth={1}

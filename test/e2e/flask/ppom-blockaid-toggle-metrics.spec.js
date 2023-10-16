@@ -4,13 +4,10 @@ const { mockServerJsonRpc } = require('../mock-server-json-rpc');
 
 const {
   defaultGanacheOptions,
-  // openDapp,
   unlockWallet,
   withFixtures,
   getEventPayloads,
 } = require('../helpers');
-
-// const bannerAlertSelector = '[data-testid="security-provider-banner-alert"]';
 
 const selectedAddress = '0x5cfe73b6021e818b776b421b1c4db2474086a7e1';
 const selectedAddressWithoutPrefix = '5cfe73b6021e818b776b421b1c4db2474086a7e1';
@@ -301,54 +298,4 @@ describe('PPOM Blockaid Alert - Metrics', function () {
       },
     );
   });
-
-  // it('should show banner alert', async function () {
-  //   await withFixtures(
-  //     {
-  //       dapp: true,
-  //       fixtures: new FixtureBuilder()
-  //         .withNetworkControllerOnMainnet()
-  //         .withPermissionControllerConnectedToTestDapp()
-  //         .withPreferencesController({
-  //           securityAlertsEnabled: true,
-  //         })
-  //         .build(),
-  //       defaultGanacheOptions,
-  //       testSpecificMock: mockInfura,
-  //       title: this.test.title,
-  //     },
-
-  //     async ({ driver }) => {
-  //       const expectedTitle = 'This is a deceptive request';
-  //       const expectedDescription =
-  //         'If you approve this request, a third party known for scams will take all your assets.';
-
-  //       await driver.navigate();
-  //       await unlockWallet(driver);
-  //       await openDapp(driver);
-
-  //       // Click TestDapp button to send JSON-RPC request
-  //       await driver.clickElement('#maliciousERC20TransferButton');
-
-  //       // Wait for confirmation pop-up
-  //       await driver.waitUntilXWindowHandles(3);
-  //       await driver.switchToWindowWithTitle('MetaMask Notification');
-
-  //       const bannerAlertFoundByTitle = await driver.findElement({
-  //         css: bannerAlertSelector,
-  //         text: expectedTitle,
-  //       });
-  //       const bannerAlertText = await bannerAlertFoundByTitle.getText();
-
-  //       assert(
-  //         bannerAlertFoundByTitle,
-  //         `Banner alert not found. Expected Title: ${expectedTitle} \nExpected reason: transfer_farming\n`,
-  //       );
-  //       assert(
-  //         bannerAlertText.includes(expectedDescription),
-  //         `Unexpected banner alert description. Expected: ${expectedDescription} \nExpected reason: transfer_farming\n`,
-  //       );
-  //     },
-  //   );
-  // });
 });

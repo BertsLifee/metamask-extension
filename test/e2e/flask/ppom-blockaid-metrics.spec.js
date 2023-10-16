@@ -4,13 +4,13 @@ const { mockServerJsonRpc } = require('../mock-server-json-rpc');
 
 const {
   defaultGanacheOptions,
-  openDapp,
+  // openDapp,
   unlockWallet,
   withFixtures,
   getEventPayloads,
 } = require('../helpers');
 
-const bannerAlertSelector = '[data-testid="security-provider-banner-alert"]';
+// const bannerAlertSelector = '[data-testid="security-provider-banner-alert"]';
 
 const selectedAddress = '0x5cfe73b6021e818b776b421b1c4db2474086a7e1';
 const selectedAddressWithoutPrefix = '5cfe73b6021e818b776b421b1c4db2474086a7e1';
@@ -35,74 +35,8 @@ const CONTRACT_ADDRESS = {
  * @param {import('mockttp').Mockttp} mockServer
  * @returns {Promise<import('mockttp/dist/pluggable-admin').MockttpClientResponse>[]}
  */
-async function mockSegment(mockServer) {
-  return [
-    await mockServer
-      .forPost('https://api.segment.io/v1/batch')
-      .withJsonBodyIncluding({
-        batch: [
-          {
-            type: 'track',
-            event: 'Transaction Submitted',
-            properties: { status: 'submitted' },
-          },
-        ],
-      })
-      .thenCallback(() => {
-        return {
-          statusCode: 200,
-        };
-      }),
-    await mockServer
-      .forPost('https://api.segment.io/v1/batch')
-      .withJsonBodyIncluding({
-        batch: [
-          {
-            type: 'track',
-            event: 'Transaction Submitted Anon',
-          },
-        ],
-      })
-      .thenCallback(() => {
-        return {
-          statusCode: 200,
-        };
-      }),
-    await mockServer
-      .forPost('https://api.segment.io/v1/batch')
-      .withJsonBodyIncluding({
-        batch: [
-          {
-            type: 'track',
-            event: 'Transaction Finalized',
-            properties: { status: 'confirmed' },
-          },
-        ],
-      })
-      .thenCallback(() => {
-        return {
-          statusCode: 200,
-        };
-      }),
-    await mockServer
-      .forPost('https://api.segment.io/v1/batch')
-      .withJsonBodyIncluding({
-        batch: [
-          {
-            type: 'track',
-            event: 'Transaction Finalized Anon',
-          },
-        ],
-      })
-      .thenCallback(() => {
-        return {
-          statusCode: 200,
-        };
-      }),
-  ];
-}
 
-async function mockInfura(mockServer) {
+async function mockServerCalls(mockServer) {
   await mockServerJsonRpc(mockServer, [
     ['eth_blockNumber'],
     [
@@ -236,10 +170,50 @@ async function mockInfura(mockServer) {
         },
       };
     });
+
+  return [
+    await mockServer
+      .forPost('https://api.segment.io/v1/batch')
+      .withJsonBodyIncluding({
+        batch: [
+          {
+            type: 'track',
+            event: 'Enabled/Disable Security Alerts',
+            properties: {
+              enabled: true,
+              category: 'Settings',
+            },
+          },
+        ],
+      })
+      .thenCallback(() => {
+        return {
+          statusCode: 200,
+        };
+      }),
+    await mockServer
+      .forPost('https://api.segment.io/v1/batch')
+      .withJsonBodyIncluding({
+        batch: [
+          {
+            type: 'track',
+            event: 'Enabled/Disable Security Alerts',
+            properties: {
+              enabled: false,
+              category: 'Settings',
+            },
+          },
+        ],
+      })
+      .thenCallback(() => {
+        return {
+          statusCode: 200,
+        };
+      }),
+  ];
 }
 
 describe('PPOM Blockaid Alert - Metrics', function () {
-
   it('Successfully track button toggle on/off', async function () {
     await withFixtures(
       {
@@ -254,34 +228,76 @@ describe('PPOM Blockaid Alert - Metrics', function () {
           .build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.title,
-        testSpecificMock: mockSegment,
+        testSpecificMock: mockServerCalls,
       },
       async ({ driver, mockedEndpoint: mockedEndpoints }) => {
-        alert('Here');
-
         await driver.navigate();
         await unlockWallet(driver);
 
+        // toggle on
         await driver.clickElement(
           '[data-testid="account-options-menu-button"]',
         );
-
         await driver.clickElement({ text: 'Settings', tag: 'div' });
         await driver.clickElement({ text: 'Experimental', tag: 'div' });
-
         await driver.clickElement(
           '[data-testid="settings-toggle-security-alert-blockaid"] .toggle-button > div',
         );
 
+        await driver.delay(1000);
 
-        // track here
+        // toggle off
+        await driver.clickElement(
+          '[data-testid="account-options-menu-button"]',
+        );
+        await driver.clickElement({ text: 'Settings', tag: 'div' });
+        await driver.clickElement({ text: 'Experimental', tag: 'div' });
+        await driver.clickElement(
+          '[data-testid="settings-toggle-security-alert-blockaid"] .toggle-button > div',
+        );
+
         const events = await getEventPayloads(driver, mockedEndpoints);
 
-        alert(events);
+        const toggleOnEvent = {
+          event: 'Enabled/Disable Security Alerts',
+          properties: {
+            enabled: true,
+            category: 'Settings',
+          },
+          userId: 'fake-metrics-id',
+          type: 'track',
+        };
+        const matchToggleOnEvent = {
+          event: events[0].event,
+          properties: {
+            enabled: events[0].properties.enabled,
+            category: events[0].properties.category,
+          },
+          userId: events[0].userId,
+          type: events[0].type,
+        };
 
-        console.log('Events: ', events);
+        const toggleOffEvent = {
+          event: 'Enabled/Disable Security Alerts',
+          properties: {
+            enabled: false,
+            category: 'Settings',
+          },
+          userId: 'fake-metrics-id',
+          type: 'track',
+        };
+        const matchToggleOffEvent = {
+          event: events[1].event,
+          properties: {
+            enabled: events[1].properties.enabled,
+            category: events[1].properties.category,
+          },
+          userId: events[1].userId,
+          type: events[1].type,
+        };
 
-        await driver.delay(10000);
+        assert.deepStrictEqual(toggleOnEvent, matchToggleOnEvent);
+        assert.deepStrictEqual(toggleOffEvent, matchToggleOffEvent);
       },
     );
   });

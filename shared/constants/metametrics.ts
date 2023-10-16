@@ -642,6 +642,9 @@ export enum MetaMetricsEventName {
   ///: BEGIN:ONLY_INCLUDE_IN(keyring-snaps)
   AddSnapAccountEnabled = 'Add Snap Account Enabled',
   ///: END:ONLY_INCLUDE_IN
+  ///: BEGIN:ONLY_INCLUDE_IN(blockaid)
+  SecurityAlertsEnabled = 'Enabled/Disable Security Alerts',
+  ///: END:ONLY_INCLUDE_IN
 }
 
 export enum MetaMetricsEventAccountType {

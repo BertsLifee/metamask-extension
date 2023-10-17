@@ -4,7 +4,7 @@ import reactRouterDom from 'react-router-dom';
 import configureStore from '../../../store/store';
 import { renderWithProvider } from '../../../../test/jest/rendering';
 import { SECURITY_ROUTE } from '../../../helpers/constants/routes';
-import { setBackgroundConnection } from '../../../../test/jest';
+import { setBackgroundConnection } from '../../../store/background-connection';
 import NftsTab from '.';
 
 const NFTS = [

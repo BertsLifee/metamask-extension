@@ -17,18 +17,13 @@ import { AccountListMenu } from '.';
 const mockToggleAccountMenu = jest.fn();
 const mockGetEnvironmentType = jest.fn();
 
-jest.mock('../../../store/actions.ts', () => ({
-  ...jest.requireActual('../../../store/actions.ts'),
-  toggleAccountMenu: () => mockToggleAccountMenu,
-}));
-
 jest.mock('../../../../app/scripts/lib/util', () => ({
   ...jest.requireActual('../../../../app/scripts/lib/util'),
   getEnvironmentType: () => mockGetEnvironmentType,
 }));
 ///: END:ONLY_INCLUDE_IN
 
-const render = (props = { onClose: () => jest.fn() }) => {
+const render = (props = { onClose: mockToggleAccountMenu }) => {
   const store = configureStore({
     ...mockState,
     activeTab: {

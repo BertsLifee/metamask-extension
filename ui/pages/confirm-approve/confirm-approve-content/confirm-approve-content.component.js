@@ -50,6 +50,7 @@ import CustomNonce from '../../../components/app/custom-nonce';
 export default class ConfirmApproveContent extends Component {
   static contextTypes = {
     t: PropTypes.func,
+    trackEvent: PropTypes.func,
   };
 
   static propTypes = {

@@ -37,7 +37,6 @@ export default function TokenDetailsPage() {
   const t = useContext(I18nContext);
   const tokens = useSelector(getTokens);
   const tokenList = useSelector(getTokenList);
-
   const { address: tokenAddress } = useParams();
   const tokenMetadata = tokenList[tokenAddress.toLowerCase()];
   const aggregators = tokenMetadata?.aggregators?.join(', ');
@@ -46,8 +45,11 @@ export default function TokenDetailsPage() {
     isEqualCaseInsensitive(address, tokenAddress),
   );
 
-  const { tokensWithBalances } = useTokenTracker({ tokens: [token] });
+  const { tokensWithBalances } = useTokenTracker({
+    tokens: token ? [token] : [],
+  });
   const tokenBalance = tokensWithBalances[0]?.string;
+
   const tokenCurrencyBalance = useTokenFiatAmount(
     token?.address,
     tokenBalance,

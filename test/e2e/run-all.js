@@ -185,6 +185,13 @@ async function main() {
     return;
   }
 
+  if (!fs.existsSync('test/test-results/myTestList.txt')) {
+    console.log(
+      'run-all.js info: Skipping this node because there is no myTestList.txt',
+    );
+    return;
+  }
+
   // take the space-delimited result and split into an array
   const myTestList = fs
     .readFileSync('test/test-results/myTestList.txt', { encoding: 'utf8' })

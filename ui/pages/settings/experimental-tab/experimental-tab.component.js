@@ -86,9 +86,9 @@ export default class ExperimentalTab extends PureComponent {
       this.props;
     this.context.trackEvent({
       category: MetaMetricsEventCategory.Settings,
-      event: MetaMetricsEventName.SecurityAlertsEnabled,
+      event: MetaMetricsEventName.SettingsUpdated,
       properties: {
-        enabled: newValue,
+        security_alerts_enabled: newValue,
       },
     });
     setSecurityAlertsEnabled(newValue);

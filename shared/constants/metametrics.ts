@@ -559,6 +559,9 @@ export enum MetaMetricsEventName {
   PublicAddressCopied = 'Public Address Copied',
   QuoteError = 'Quote Error',
   ServiceWorkerRestarted = 'Service Worker Restarted',
+  ///: BEGIN:ONLY_INCLUDE_IN(blockaid)
+  SettingsUpdated = 'Settings Updated',
+  ///: END:ONLY_INCLUDE_IN
   SignatureApproved = 'Signature Approved',
   SignatureFailed = 'Signature Failed',
   SignatureRejected = 'Signature Rejected',
@@ -641,9 +644,6 @@ export enum MetaMetricsEventName {
   ///: END:ONLY_INCLUDE_IN
   ///: BEGIN:ONLY_INCLUDE_IN(keyring-snaps)
   AddSnapAccountEnabled = 'Add Snap Account Enabled',
-  ///: END:ONLY_INCLUDE_IN
-  ///: BEGIN:ONLY_INCLUDE_IN(blockaid)
-  SecurityAlertsEnabled = 'Enabled/Disable Security Alerts',
   ///: END:ONLY_INCLUDE_IN
 }
 

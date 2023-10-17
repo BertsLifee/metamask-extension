@@ -156,20 +156,15 @@ const checkActivityTransaction = async (driver, options) => {
 };
 
 const checkNotification = async (driver, options) => {
-  const boxTitle = await driver.findElement(
-    '[data-testid="swaps-banner-title"]',
-  );
-  assert.equal(await boxTitle.getText(), options.title, 'Invalid box title');
-  const boxContent = await driver.findElement(
-    '[data-testid="mm-banner-alert-notification-text"]',
-  );
-  const bodyText = await boxContent.getText();
-  console.log(`test: ${bodyText}`);
-  assert.equal(
-    bodyText.includes(options.text),
-    true,
-    'Invalid box text content',
-  );
+  await driver.findElement({
+    css: '[data-testid="swaps-banner-title"]',
+    text: options.title,
+  });
+
+  await driver.findElement({
+    css: '[data-testid="mm-banner-alert-notification-text"]',
+    text: options.text,
+  });
 };
 
 const changeExchangeRate = async (driver) => {

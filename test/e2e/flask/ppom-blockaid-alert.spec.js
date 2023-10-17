@@ -4,10 +4,11 @@ const { mockServerJsonRpc } = require('../mock-server-json-rpc');
 
 const {
   defaultGanacheOptions,
-  getWindowHandles,
   openDapp,
   unlockWallet,
   withFixtures,
+  switchToNotificationWindow,
+  WINDOW_TITLES,
 } = require('../helpers');
 
 const bannerAlertSelector = '[data-testid="security-provider-banner-alert"]';
@@ -108,9 +109,7 @@ describe('Confirmation Security Alert - Blockaid', function () {
           }
 
           // Wait for confirmation pop-up
-          await driver.waitUntilXWindowHandles(3);
-          const windowHandles = await getWindowHandles(driver, 3);
-          await driver.switchToWindowWithTitle('MetaMask Notification');
+          await switchToNotificationWindow(driver);
 
           const isPresent = await driver.isElementPresent(bannerAlertSelector);
           assert.equal(
@@ -121,7 +120,7 @@ describe('Confirmation Security Alert - Blockaid', function () {
 
           // Wait for confirmation pop-up to close
           await driver.clickElement({ text: 'Reject', tag: 'button' });
-          await driver.switchToWindow(windowHandles.dapp);
+          await driver.switchToWindow(WINDOW_TITLES.TestDApp);
         }
       },
     );
@@ -189,9 +188,7 @@ describe('Confirmation Security Alert - Blockaid', function () {
           await driver.clickElement(btnSelector);
 
           // Wait for confirmation pop-up
-          await driver.waitUntilXWindowHandles(3);
-          const windowHandles = await getWindowHandles(driver, 3);
-          await driver.switchToWindowWithTitle('MetaMask Notification');
+          await switchToNotificationWindow(driver);
 
           const bannerAlertFoundByTitle = await driver.findElement({
             css: bannerAlertSelector,
@@ -210,7 +207,7 @@ describe('Confirmation Security Alert - Blockaid', function () {
 
           // Wait for confirmation pop-up to close
           await driver.clickElement({ text: 'Reject', tag: 'button' });
-          await driver.switchToWindow(windowHandles.dapp);
+          await driver.switchToWindow(WINDOW_TITLES.TestDApp);
         }
       },
     );
@@ -240,8 +237,7 @@ describe('Confirmation Security Alert - Blockaid', function () {
         await driver.clickElement('#maliciousApprovalButton');
 
         // Wait for confirmation pop-up
-        await driver.waitUntilXWindowHandles(3);
-        await driver.switchToWindowWithTitle('MetaMask Notification');
+        await switchToNotificationWindow(driver);
 
         const expectedTitle = 'Request may not be safe';
 
